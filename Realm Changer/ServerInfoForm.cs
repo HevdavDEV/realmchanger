@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.IO;
 
 namespace Realm_Changer
 {
@@ -34,12 +35,19 @@ namespace Realm_Changer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            XDocument doc = XDocument.Load("ServerInfo.xml");
-            XElement Realm = new XElement("Realm", new XElement("Name", textBox1.Text), new XElement("Realmlist", textBox2.Text));
-            doc.Root.Add(Realm);
-            doc.Save("ServerInfo.xml");
-            this.Dispose();
-            this.Close();
+            try
+            {
+                XDocument doc = XDocument.Load("ServerInfo.xml");
+                XElement Realm = new XElement("Realm", new XElement("Name", textBox1.Text), new XElement("Realmlist", textBox2.Text));
+                doc.Root.Add(Realm);
+                doc.Save("ServerInfo.xml");
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("no");
+            }
+                this.Dispose();
+             this.Close();
         }
     }
 }

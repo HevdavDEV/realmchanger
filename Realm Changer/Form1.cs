@@ -24,9 +24,13 @@ namespace Realm_Changer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if(System.IO.File.Exists("ServerInfo.xml"))
+            if (System.IO.File.Exists("ServerInfo.xml"))
             {
                 LoadXmlFile();
+            }
+            else
+            {
+                //create xml file faggot
             }
         }
 
@@ -56,19 +60,32 @@ namespace Realm_Changer
             /*
              * <ServerInfo>
              *     <Realm>
-             *         <Name>Test</Name>
-             *         <Realmlist>Test</Realmlist>
+             *         <Name></Name>
+             *         <Realmlist></Realmlist>
              *     </Realm>
              * <ServerInfo>
              */
 
             XmlDocument doc = new XmlDocument();
             doc.Load("ServerInfo.xml");
-            XmlNodeList ServerNodes = doc.SelectNodes("ServerInfo/Realm/Name");
-            foreach (XmlNode Name in ServerNodes)
+            XmlNodeList RealmNodes = doc.SelectNodes("//Realm");
+            XmlNodeList RealmlistNodes = doc.SelectNodes("//Realmlist");
+            List<String> Realmlist = new List<String>();
+            List<String> Realms = new List<String>();
+
+            foreach(XmlNode temp_realmlist in RealmlistNodes)
             {
-                //load relmalist as well, place is container
-                comboBox1.Items.Add(Name.InnerText);
+                Realmlist.Add(temp_realmlist.Value.ToString());
+            }
+
+            foreach (XmlNode Realm in RealmNodes)
+            {
+                Realms.Add(Realm.Value.ToString());
+            }
+
+            for (int i = 0; i < Realms.Count(); i++)
+            {
+                ComboBoxList.Add(Realms[i], Realmlist[i]);
             }
             
         }
@@ -92,5 +109,7 @@ namespace Realm_Changer
             comboBox1.Items.Clear();
             LoadXmlFile();
         }
+
+        private Dictionary<String, String> ComboBoxList;
     }
 }
