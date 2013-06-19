@@ -41,10 +41,13 @@ namespace Realm_Changer
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            //edits info
-            if (comboBox1.SelectedItem != null)
+            try
             {
-
+                ServerInfoForm EditForm = new ServerInfoForm(comboBox1.SelectedItem.ToString(), comboBox1.SelectedItem.ToString());
+                EditForm.ShowDialog();
+            }
+            catch (NullReferenceException)
+            {
             }
         }
 
@@ -64,6 +67,7 @@ namespace Realm_Changer
             XmlNodeList ServerNodes = doc.SelectNodes("ServerInfo/Realm/Name");
             foreach (XmlNode Name in ServerNodes)
             {
+                //load relmalist as well, place is container
                 comboBox1.Items.Add(Name.InnerText);
             }
             

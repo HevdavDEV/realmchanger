@@ -14,6 +14,13 @@ namespace Realm_Changer
 {
     public partial class ServerInfoForm : Form
     {
+        public ServerInfoForm(string name, string realmlist)
+        {
+            InitializeComponent();
+            textBox1.Text = name;
+            textBox2.Text = realmlist;
+        }
+
         public ServerInfoForm()
         {
             InitializeComponent();
