@@ -46,8 +46,9 @@ namespace Realm_Changer
             {
                 MessageBox.Show("no");
             }
-                this.Dispose();
-             this.Close();
+            
+            this.Dispose();
+            this.Close();
         }
     }
 }

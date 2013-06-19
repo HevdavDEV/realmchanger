@@ -12,6 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Web;
+using System.IO;
 
 namespace Realm_Changer
 {
@@ -30,7 +31,12 @@ namespace Realm_Changer
             }
             else
             {
-                //create xml file faggot
+                XElement Realm = new XElement("ServerInfo");
+                XDocument doc = new XDocument(Realm);
+                XElement test = new XElement("Realm", new XElement("Name", "Example"), new XElement("Realmlist", "Example"));
+                doc.Root.Add(test);
+                doc.Save("ServerInfo.xml");
+                LoadXmlFile();
             }
         }
 
@@ -52,6 +58,7 @@ namespace Realm_Changer
             }
             catch (NullReferenceException)
             {
+                MessageBox.Show("No server selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -65,29 +72,37 @@ namespace Realm_Changer
              *     </Realm>
              * <ServerInfo>
              */
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load("ServerInfo.xml");
-            XmlNodeList RealmNodes = doc.SelectNodes("//Realm");
-            XmlNodeList RealmlistNodes = doc.SelectNodes("//Realmlist");
-            List<String> Realmlist = new List<String>();
-            List<String> Realms = new List<String>();
-
-            foreach(XmlNode temp_realmlist in RealmlistNodes)
+            try
             {
-                Realmlist.Add(temp_realmlist.Value.ToString());
-            }
+                XmlDocument doc = new XmlDocument();
+                doc.Load("ServerInfo.xml");
+                XmlNodeList RealmNodes = doc.SelectNodes("Name");
+                XmlNodeList RealmlistNodes = doc.SelectNodes("Realmlist");
+                List<String> Realmlist = new List<String>();
+                List<String> Realms = new List<String>();
 
-            foreach (XmlNode Realm in RealmNodes)
-            {
-                Realms.Add(Realm.Value.ToString());
-            }
+                foreach(XmlNode temp_realmlist in RealmlistNodes)
+                {
+                    Realmlist.Add(temp_realmlist.Value.ToString());
+                }
 
-            for (int i = 0; i < Realms.Count(); i++)
-            {
-                ComboBoxList.Add(Realms[i], Realmlist[i]);
-            }
+                foreach (XmlNode Realm in RealmNodes)
+                {
+                    Realms.Add(Realm.Value.ToString());
+                }
+
+                for (int i = 0; i < Realms.Count(); i++)
+                {
+                    ComboBoxList.Add(Realms[i], Realmlist[i]);
+                }
             
+            }
+            catch(FileNotFoundException)
+            {
+                //create xml file
+                File.Create("ServerInfo.xml");
+                MessageBox.Show("XML File doesn't exist, add a realm first!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button1_Click_1(object sender, EventArgs e)
