@@ -55,6 +55,9 @@ namespace Realm_Changer
             {
                 ServerInfoForm EditForm = new ServerInfoForm(comboBox1.SelectedItem.ToString(), ComboBoxList[comboBox1.SelectedItem.ToString()]);
                 EditForm.ShowDialog();
+                LoadXmlFile();
+                comboBox1.Refresh();
+                comboBox1.ResetText();
             }
             catch (NullReferenceException)
             {
