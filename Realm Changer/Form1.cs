@@ -40,7 +40,7 @@ namespace Realm_Changer
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddServerButton_Click(object sender, EventArgs e)
         {
             //adds server
             ServerInfoForm InfoForm = new ServerInfoForm();
@@ -53,7 +53,7 @@ namespace Realm_Changer
         {
             try
             {
-                ServerInfoForm EditForm = new ServerInfoForm(comboBox1.SelectedItem.ToString(), comboBox1.SelectedItem.ToString());
+                ServerInfoForm EditForm = new ServerInfoForm(comboBox1.SelectedItem.ToString(), ComboBoxList[comboBox1.SelectedItem.ToString()]);
                 EditForm.ShowDialog();
             }
             catch (NullReferenceException)
@@ -62,7 +62,7 @@ namespace Realm_Changer
             }
         }
 
-        private void LoadXmlFile()
+        public void LoadXmlFile()
         {
             /*
              * <ServerInfo>
@@ -80,6 +80,9 @@ namespace Realm_Changer
                 XmlNodeList RealmlistNodes = doc.SelectNodes("ServerInfo/Realm/Realmlist");
                 List<string> Realmlist = new List<string>();
                 List<string> Realms = new List<string>();
+                
+                if (ComboBoxList.Count > 0)
+                    ComboBoxList.Clear();
 
                 foreach(XmlNode temp_realmlist in RealmlistNodes)
                 {
@@ -119,7 +122,7 @@ namespace Realm_Changer
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void RemoveServerButton_Click(object sender, EventArgs e)
         {
             //delete button
             
@@ -129,6 +132,8 @@ namespace Realm_Changer
                 doc.Load("ServerInfo.xml");
                 string path = "ServerInfo/Realm[Name='" + comboBox1.SelectedItem.ToString() + "']";
                 XmlNode node = doc.SelectSingleNode(path);
+                node.ParentNode.RemoveChild(node);
+                doc.Save("ServerInfo.xml");
             }
             catch (NullReferenceException)
             {

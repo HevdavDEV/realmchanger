@@ -48,7 +48,7 @@
             this.AddServerButton.TabIndex = 1;
             this.AddServerButton.Text = "Add Server";
             this.AddServerButton.UseVisualStyleBackColor = true;
-            this.AddServerButton.Click += new System.EventHandler(this.button1_Click);
+            this.AddServerButton.Click += new System.EventHandler(this.AddServerButton_Click);
             // 
             // EditButton
             // 
@@ -68,7 +68,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Remove Server";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.RemoveServerButton_Click);
             // 
             // comboBox1
             // 
