@@ -25,18 +25,27 @@ namespace Realm_Changer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (System.IO.File.Exists("ServerInfo.xml"))
+            if (File.Exists("Wow.exe"))
             {
-                LoadXmlFile();
+                if (System.IO.File.Exists("ServerInfo.xml"))
+                {
+                    LoadXmlFile();
+                }
+                else
+                {
+                    XElement Realm = new XElement("ServerInfo");
+                    XDocument doc = new XDocument(Realm);
+                    XElement test = new XElement("Realm", new XElement("Name", "Example"), new XElement("Realmlist", "Example"));
+                    doc.Root.Add(test);
+                    doc.Save("ServerInfo.xml");
+                    LoadXmlFile();
+                }
             }
             else
             {
-                XElement Realm = new XElement("ServerInfo");
-                XDocument doc = new XDocument(Realm);
-                XElement test = new XElement("Realm", new XElement("Name", "Example"), new XElement("Realmlist", "Example"));
-                doc.Root.Add(test);
-                doc.Save("ServerInfo.xml");
-                LoadXmlFile();
+                MessageBox.Show("Place application in your WoW directory!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Dispose();
+                this.Close();
             }
         }
 
@@ -143,11 +152,25 @@ namespace Realm_Changer
                 MessageBox.Show("Server not selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //refresh combobox
-            comboBox1.Items.Clear();
             LoadXmlFile();
+            comboBox1.ResetText();
+            comboBox1.Refresh();
+        }
+
+        private void LaunchGameButton_Click(object sender, EventArgs e)
+        {
+            //find realmlist for key
+            string realmlist = "Set realmlist " + ComboBoxList[comboBox1.SelectedItem.ToString()];
+            //set realmlist
+            StreamWriter openFile = new StreamWriter("Data/realmlist.wtf");
+            openFile.WriteLine(realmlist);
+            openFile.Close();
+            //launch game
+            System.Diagnostics.Process.Start("Wow.exe");
         }
 
         private Dictionary<string, string> ComboBoxList = new Dictionary<string,string>();
+
+        
     }
 }

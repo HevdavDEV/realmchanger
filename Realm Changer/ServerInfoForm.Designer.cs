@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerInfoForm));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,6 +58,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(88, 40);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
@@ -67,6 +69,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(80, 106);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
@@ -76,13 +79,14 @@
             // 
             // AddRealmButton
             // 
+            this.AddRealmButton.BackColor = System.Drawing.Color.White;
             this.AddRealmButton.Location = new System.Drawing.Point(0, 188);
             this.AddRealmButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AddRealmButton.Name = "AddRealmButton";
             this.AddRealmButton.Size = new System.Drawing.Size(212, 19);
             this.AddRealmButton.TabIndex = 4;
             this.AddRealmButton.Text = "Add Realm";
-            this.AddRealmButton.UseVisualStyleBackColor = true;
+            this.AddRealmButton.UseVisualStyleBackColor = false;
             this.AddRealmButton.Visible = false;
             this.AddRealmButton.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -102,6 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(212, 207);
             this.Controls.Add(this.AddRealmButton);
             this.Controls.Add(this.label2);
@@ -109,6 +114,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.EditRealmButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ServerInfoForm";
             this.Text = "Edit Info";
